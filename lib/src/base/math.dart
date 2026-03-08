@@ -35,3 +35,18 @@ int floorMod(int a, int b) {
   final result = a % b;
   return result < 0 ? result + b : result;
 }
+
+/// Cosine threshold for small angles near the pole.
+const double cosSmallAngle = 9.999999999999998e-1; // cos(0.000005°)
+
+/// Converts arcseconds to radians.
+double secToRad(double sec) => sec * math.pi / (180 * 3600);
+
+/// Converts arcminutes to radians.
+double minToRad(double min) => min * math.pi / (180 * 60);
+
+/// Converts sexagesimal (sign, degrees, minutes, seconds) to decimal degrees.
+double fromSexaSec(int d, int m, double s) => d + m / 60.0 + s / 3600.0;
+
+/// Normalizes an angle in radians to the range [0, 2π).
+double mod2pi(double x) => pMod(x, 2 * math.pi);

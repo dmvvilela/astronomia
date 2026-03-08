@@ -81,5 +81,8 @@ int dayOfYear(int y, int m, int d) {
 bool isLeapYearGregorian(int y) =>
     y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
 
-/// Julian Day Number for J2000.0 epoch.
+/// Centuries from J2000.0 for a given JD.
 double j2000Century(double jd) => (jd - j2000) / julianCentury;
+
+/// Converts a Julian year to JDE.
+double julianYearToJDE(double year) => j2000 + (year - 2000) * julianYear;

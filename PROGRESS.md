@@ -27,13 +27,13 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 3 — Coordinate Corrections
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| nutation        | meeus  | ⬜     | nutation, obliquity of ecliptic |
-| precess         | meeus  | ⬜     | precession between epochs |
-| coord           | meeus  | ⬜     | coordinate transforms |
-| parallactic     | meeus  | ⬜     | parallactic angle |
-| refraction      | meeus  | ⬜     | atmospheric refraction |
-| parallax        | meeus  | ⬜     | parallax correction |
-| apparent        | meeus  | ⬜     | apparent place of a star |
+| nutation        | meeus  | ✅     | IAU 1980 + Laskar, approx, table 22.A |
+| precess         | meeus  | ✅     | equatorial + ecliptic precessors |
+| coord           | meeus  | ✅     | ecl↔eq, eq↔hz, eq↔gal transforms |
+| parallactic     | meeus  | ✅     | parallactic angle, ecliptic at horizon |
+| refraction      | meeus  | ✅     | gt15, Bennett, Saemundsson |
+| parallax        | meeus  | ✅     | horizontal, topocentric, topocentric2 |
+| apparent        | meeus  | 🔧     | nutation/aberration corrections (Position needs solar) |
 
 ## Phase 4 — Sun
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 8
-- **In progress:** 1
-- **Remaining:** 48
+- **Done:** 14
+- **In progress:** 2
+- **Remaining:** 41
