@@ -47,13 +47,13 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 5 — Moon
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| moonposition    | meeus  | ⬜     | Moon ecliptic position |
-| moonphase       | meeus  | ⬜     | phases of the Moon |
-| moonillum       | meeus  | ⬜     | illuminated fraction |
-| moonnode        | meeus  | ⬜     | passages through nodes |
-| moonmaxdec      | meeus  | ⬜     | maximum declinations |
-| moon            | meeus  | ⬜     | physical observations |
-| apsis           | meeus  | ⬜     | perigee & apogee |
+| moonposition    | meeus  | ✅     | Moon ecliptic position, node, perigee, trueNode |
+| moonphase       | meeus  | ✅     | mean + precise phases (new/first/full/last) |
+| moonillum       | meeus  | ✅     | illuminated fraction, phase angle, limb |
+| moonnode        | meeus  | ✅     | ascending/descending node passages |
+| moonmaxdec      | meeus  | ✅     | north/south maximum declinations |
+| moon            | meeus  | 🔧     | stub — needs VSOP87 |
+| apsis           | meeus  | ✅     | perigee/apogee with parallax |
 
 ## Phase 6 — Planets & Orbits
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 18
-- **In progress:** 3
-- **Remaining:** 36
+- **Done:** 24
+- **In progress:** 4
+- **Remaining:** 29
