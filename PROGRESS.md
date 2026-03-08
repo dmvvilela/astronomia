@@ -80,25 +80,25 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 8 — Misc
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| globe           | meeus  | ⬜     | Earth ellipsoid, geodetic coords |
-| rise            | meeus  | ⬜     | rise, transit, set times |
-| angle           | meeus  | ⬜     | angular separation |
-| conjunction     | meeus  | ⬜     | planetary conjunctions |
-| line            | meeus  | ⬜     | three bodies in a line |
-| circle          | meeus  | ⬜     | smallest circle containing 3 bodies |
-| eclipse         | meeus  | ⬜     | solar & lunar eclipses |
-| semidiameter    | meeus  | ⬜     | angular diameters |
-| stellar         | meeus  | ⬜     | stellar magnitudes |
-| binary          | meeus  | ⬜     | binary stars |
-| sundial         | meeus  | ⬜     | planar sundial |
-| easter          | meeus  | ⬜     | date of Easter |
-| jm              | meeus  | ⬜     | Jewish & Muslim calendars |
-| elementequinox  | meeus  | ⬜     | ecliptical element reduction |
-| perihelion      | meeus  | ⬜     | perihelion & aphelion |
-| node            | meeus  | ⬜     | passages through nodes |
+| globe           | meeus  | ✅     | Earth ellipsoid, geodetic coords, distance |
+| rise            | meeus  | 🔧     | approxTimes done, Planet/ApproxPlanet need VSOP87 |
+| angle           | meeus  | ✅     | sep, sepHav, relativePosition |
+| conjunction     | meeus  | 🔧     | stub — needs VSOP87 |
+| line            | meeus  | ✅     | collinearity deviation angle |
+| circle          | meeus  | ✅     | smallest circle containing 3 bodies |
+| eclipse         | meeus  | ✅     | solar & lunar eclipses |
+| semidiameter    | meeus  | ✅     | standard values, asteroid diameter |
+| stellar         | meeus  | ✅     | sum, ratio, absolute magnitude |
+| binary          | meeus  | ✅     | mean anomaly, position, apparent eccentricity |
+| sundial         | meeus  | ✅     | horizontal hour angles |
+| easter          | meeus  | ✅     | Gregorian & Julian Easter |
+| jm              | meeus  | 🔧     | stub — complex calendar logic |
+| elementequinox  | meeus  | ✅     | B1950→J2000 reduction |
+| perihelion      | meeus  | ✅     | perihelion & aphelion for all planets |
+| node2           | meeus  | ✅     | elliptic & parabolic node passages |
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 33
-- **In progress:** 9
-- **Remaining:** 15
+- **Done:** 45
+- **In progress:** 12 (mostly VSOP87-dependent)
+- **Remaining:** 0
