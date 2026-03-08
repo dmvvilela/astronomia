@@ -1,0 +1,11 @@
+name: astronomia
+description: Astronomical algorithms in Dart — a port of Meeus's "Astronomical Algorithms" with extras from astronomia.js.
+version: 0.1.0
+repository: https://github.com/dmvvilela/astronomia-dart
+
+environment:
+  sdk: ^3.11.1
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
