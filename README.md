@@ -7,7 +7,7 @@ Astronomical algorithms in Dart, ported from Jean Meeus's
 
 ## Features
 
-**57 modules** covering positional astronomy, celestial mechanics, and calendar computations:
+**56 modules** covering positional astronomy, celestial mechanics, and calendar computations:
 
 | Category | Modules |
 |----------|---------|
@@ -144,7 +144,7 @@ void main() {
 
 ## Status
 
-All 57 modules fully implemented. 216 tests passing, validated against examples from Meeus's book.
+All 56 modules fully implemented (1 stub: Jewish/Moslem calendars). 216 tests passing, validated against examples from Meeus's book.
 
 ## References
 

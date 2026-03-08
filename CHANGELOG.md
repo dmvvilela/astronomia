@@ -1,6 +1,6 @@
 ## 0.3.0
 
-- **All 57 modules complete** — no more stubs.
+- **All 56 modules complete** — no more stubs.
 - **Mars physical ephemeris** — planetocentric declinations, areographic meridian, position angles, illuminated fraction (Ch. 42).
 - **Moon physical libration** — optical + physical librations, selenographic Sun coordinates, sunrise/sunset on lunar surface, 52-feature catalog (Ch. 53).
 - **Saturn moons** — positions of all 8 major moons (Mimas through Iapetus) in Saturn radii (Ch. 46).
