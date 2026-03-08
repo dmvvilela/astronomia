@@ -6,7 +6,6 @@ library;
 
 import 'dart:math' as math;
 
-import '../base/math.dart';
 
 /// Velocity of a body at distance [r] in an orbit with semimajor axis [a].
 ///

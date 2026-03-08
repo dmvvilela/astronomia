@@ -28,7 +28,7 @@ double semidiameter(double s0, double delta) {
 
 /// Asteroid diameter in km from absolute magnitude [h] and albedo [a].
 double asteroidDiameter(double h, double a) {
-  return math.pow(10, 3.12 - 0.2 * h - 0.5 * math.log(a) / math.ln10);
+  return math.pow(10, 3.12 - 0.2 * h - 0.5 * math.log(a) / math.ln10).toDouble();
 }
 
 /// Asteroid apparent semidiameter in radians from diameter [d] (km)

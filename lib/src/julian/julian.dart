@@ -86,3 +86,6 @@ double j2000Century(double jd) => (jd - j2000) / julianCentury;
 
 /// Converts a Julian year to JDE.
 double julianYearToJDE(double year) => j2000 + (year - 2000) * julianYear;
+
+/// Converts a Julian ephemeris day to a Julian year.
+double jdeToJulianYear(double jde) => 2000 + (jde - j2000) / julianYear;

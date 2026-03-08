@@ -6,7 +6,6 @@ library;
 
 import 'dart:math' as math;
 
-import '../base/math.dart';
 import '../julian/julian.dart';
 
 const double _p = math.pi / 180;

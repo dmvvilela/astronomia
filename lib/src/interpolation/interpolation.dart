@@ -12,10 +12,10 @@ class Len3 {
   final double x1;
   final double x3;
   final List<double> y;
-  final double _a, _b, _c;
+  final double _c;
   final double _abSum, _xSum, _xDiff;
 
-  Len3._(this.x1, this.x3, this.y, this._a, this._b, this._c, this._abSum,
+  Len3._(this.x1, this.x3, this.y, this._c, this._abSum,
       this._xSum, this._xDiff);
 
   /// Creates a [Len3] from first and last x values and 3 y values.
@@ -32,7 +32,7 @@ class Len3 {
     final a = y[1] - y[0];
     final b = y[2] - y[1];
     final c = b - a;
-    return Len3._(x1, x3, List.of(y), a, b, c, a + b, x3 + x1, x3 - x1);
+    return Len3._(x1, x3, List.of(y), c, a + b, x3 + x1, x3 - x1);
   }
 
   /// Special constructor that selects the best 3 rows from a larger table
@@ -124,8 +124,8 @@ class Len5 {
   final double x1;
   final double x5;
   final List<double> y;
-  final double _a, _b, _c, _d;
-  final double _e, _f, _g;
+  final double _b, _c;
+  final double _f;
   final double _h, _j, _k;
   final double _y3;
   final double _xSum, _xDiff;
@@ -135,13 +135,9 @@ class Len5 {
       this.x1,
       this.x5,
       this.y,
-      this._a,
       this._b,
       this._c,
-      this._d,
-      this._e,
       this._f,
-      this._g,
       this._h,
       this._j,
       this._k,
@@ -178,7 +174,7 @@ class Len5 {
       k / 24,
     ];
     return Len5._(
-        x1, x5, List.of(y), a, b, c, d, e, f, g, h, j, k, y[2],
+        x1, x5, List.of(y), b, c, f, h, j, k, y[2],
         xSum, xDiff, interpCoeff);
   }
 

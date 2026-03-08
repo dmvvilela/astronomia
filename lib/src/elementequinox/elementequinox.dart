@@ -13,7 +13,6 @@ const double _p = math.pi / 180;
 /// Returns corrected values in radians.
 ({double inc, double peri, double node}) reduceB1950ToJ2000(
     double inc, double peri, double node) {
-  const incPrime = 1.3970 * _p;
   const nodePrime = 174.298 * _p;
   const psiA = 47.0029 * _p;
 

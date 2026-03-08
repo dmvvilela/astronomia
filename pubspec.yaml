@@ -1,7 +1,16 @@
 name: astronomia
-description: Astronomical algorithms in Dart — a port of Meeus's "Astronomical Algorithms" with extras from astronomia.js.
+description: >-
+  Astronomical algorithms in Dart — positions of Sun, Moon, and planets,
+  eclipses, phases, coordinates, magnitudes, and more. Based on Jean Meeus's
+  "Astronomical Algorithms".
 version: 0.1.0
-repository: https://github.com/dmvvilela/astronomia-dart
+repository: https://github.com/dmvvilela/astronomia
+homepage: https://github.com/dmvvilela/astronomia
+topics:
+  - astronomy
+  - science
+  - math
+  - calendar
 
 environment:
   sdk: ^3.11.1

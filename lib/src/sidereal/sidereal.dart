@@ -3,8 +3,6 @@
 /// Functions return sidereal time in seconds (range [0, 86400)).
 library;
 
-import 'dart:math' as math;
-
 import '../base/math.dart';
 import '../julian/julian.dart';
 

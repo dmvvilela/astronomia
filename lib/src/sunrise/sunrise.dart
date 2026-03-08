@@ -7,8 +7,6 @@ library;
 import 'dart:math' as math;
 
 import '../base/math.dart';
-import '../julian/julian.dart';
-import '../nutation/nutation.dart' as nut;
 import '../solar/solar.dart' as solar;
 
 /// Standard refraction + solar semidiameter correction for sunrise/sunset.
@@ -38,9 +36,6 @@ double? _hourAngle(double dec, double lat) {
 /// if the Sun never rises or sets at that location/date.
 ({double? rise, double noon, double? set}) sunriseSunset(
     double jd, double lat, double lon) {
-  final t = j2000Century(jd);
-  final sun = solar.trueSun(t);
-
   // Solar noon approximation
   final eq = solar.apparentEquatorial(jd);
   // Approximate transit

@@ -26,9 +26,6 @@ double aphelion(int p, double year) => _ap(p, year, true);
 double _ap(int p, double year, bool aph) {
   var i = p;
   if (i == emBary) i = earth;
-  final k = aph
-      ? _ka[i].a * (year - _ka[i].b) - 0.5 + 1 // floor + 0.5
-      : (_ka[i].a * (year - _ka[i].b) + 0.5).floorToDouble();
   final kk = aph
       ? ((_ka[i].a * (year - _ka[i].b)).floorToDouble() + 0.5)
       : ((_ka[i].a * (year - _ka[i].b) + 0.5).floorToDouble());

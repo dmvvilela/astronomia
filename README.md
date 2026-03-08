@@ -1,39 +1,109 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Astronomia
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Astronomical algorithms in Dart, ported from Jean Meeus's
+*Astronomical Algorithms* (2nd Ed.) via the Go
+[meeus](https://github.com/soniakeys/meeus) library and the JS
+[astronomia](https://github.com/commenthol/astronomia) library.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+**45 modules** covering positional astronomy, celestial mechanics, and calendar computations:
+
+| Category | Modules |
+|----------|---------|
+| **Time & Calendar** | Julian Day, Delta T, sidereal time, Easter (Gregorian & Julian) |
+| **Coordinates** | Ecliptic/equatorial/horizontal/galactic transforms, precession, nutation, parallax, refraction, aberration |
+| **Sun** | Solar position, solstices & equinoxes, sunrise/sunset, equation of time |
+| **Moon** | Lunar position, phases (new/first/full/last), illumination, nodes, apsis (perigee/apogee), max declination |
+| **Planets** | Kepler's equation (6 solvers), orbital elements, conjunctions, oppositions, elongations, Pluto heliocentric coords |
+| **Orbits** | Elliptic, parabolic, and near-parabolic motion, velocity, orbit length |
+| **Planet Details** | Illumination & magnitudes, Jupiter physical ephemeris, Galilean moon positions |
+| **Geodesy** | Earth ellipsoid, geodetic distance, parallax constants |
+| **Stellar** | Magnitude arithmetic, binary star orbits, angular separation |
+| **Misc** | Eclipse prediction, semidiameters, sundials, smallest circle, collinearity |
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+dependencies:
+  astronomia: ^0.1.0
+```
+
+```dart
+import 'package:astronomia/astronomia.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+The barrel import gives you foundations (julian, coordinates, nutation, etc.):
 
 ```dart
-const like = 'sample';
+import 'package:astronomia/astronomia.dart';
+
+void main() {
+  // Julian Day for J2000.0
+  final jd = calendarGregorianToJD(2000, 1, 1.5);
+  print('J2000.0 = JD $jd'); // 2451545.0
+
+  // Date of Easter 2025
+  final e = gregorian(2025);
+  print('Easter 2025: April ${e.day}'); // April 20
+}
 ```
 
-## Additional information
+For specialized modules, import them directly — many share common names
+like `position`, `radius`, `eccentricity`, so prefixed imports keep things clear:
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```dart
+import 'package:astronomia/astronomia.dart';
+import 'package:astronomia/src/solar/solar.dart' as solar;
+import 'package:astronomia/src/moonposition/moonposition.dart' as moon;
+import 'package:astronomia/src/moonphase/moonphase.dart' as phase;
+import 'package:astronomia/src/globe/globe.dart' as globe;
+import 'package:astronomia/src/angle/angle.dart' as angle;
+
+void main() {
+  final jd = calendarGregorianToJD(2000, 1, 1.5);
+
+  // Solar ecliptic longitude
+  final sunLon = solar.apparentLongitude(jd);
+
+  // Moon position
+  final pos = moon.position(jd);
+  print('Moon: lon=${toDeg(pos.lon)}°, lat=${toDeg(pos.lat)}°');
+
+  // Next new moon
+  final newMoonJDE = phase.newMoon(2025.5);
+
+  // Earth surface distance (km)
+  final km = globe.distance(lat1, lon1, lat2, lon2);
+
+  // Angular separation between two stars
+  final d = angle.sep(ra1, dec1, ra2, dec2);
+}
+```
+
+## Conventions
+
+- All angles are in **radians** (`double`). Use `toRad()` / `toDeg()` to convert.
+- Time is represented as **Julian Day numbers** (`double`).
+- Multi-value returns use Dart **records**: `({double lon, double lat, double delta})`.
+- The J2000.0 epoch constant is `j2000 = 2451545.0`.
+
+## Status
+
+This is a `0.1.0` release. 45 of 57 modules are fully ported. The remaining 12
+are stubs awaiting VSOP87 planetary theory data (needed for high-precision
+planetary positions, Saturn rings, and a few dependent calculations).
+
+All ported modules are tested against examples from Meeus's book.
+
+## References
+
+- Meeus, Jean. *Astronomical Algorithms*. 2nd ed. Richmond: Willmann-Bell, 1998.
+- [soniakeys/meeus](https://github.com/soniakeys/meeus) (Go)
+- [commenthol/astronomia](https://github.com/commenthol/astronomia) (JS)
+
+## License
+
+MIT

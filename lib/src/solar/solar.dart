@@ -8,7 +8,6 @@ library;
 import 'dart:math' as math;
 
 import '../base/math.dart';
-import '../coord/coord.dart' as coord;
 import '../julian/julian.dart';
 import '../nutation/nutation.dart' as nut;
 

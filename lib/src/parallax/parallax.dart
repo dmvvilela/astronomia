@@ -44,7 +44,6 @@ double horizontal(double delta) => _hp / delta;
     double rhoSPhi, double rhoCPhi,
     double h) {
   final pi = horizontal(delta);
-  final sinPi = math.sin(pi);
   final sH = math.sin(h);
   final cH = math.cos(h);
   final sDec = math.sin(dec);
