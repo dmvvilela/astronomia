@@ -58,14 +58,14 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 6 — Planets & Orbits
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| kepler          | meeus  | ⬜     | Kepler's equation |
-| elliptic        | meeus  | ⬜     | elliptic motion |
-| parabolic       | meeus  | ⬜     | parabolic motion |
-| nearparabolic   | meeus  | ⬜     | near-parabolic motion |
-| planetelements  | meeus  | ⬜     | mean orbital elements |
-| planetposition  | meeus  | ⬜     | VSOP87 positions |
-| planetary       | meeus  | ⬜     | planetary phenomena |
-| pluto           | meeus  | ⬜     | Pluto position |
+| kepler          | meeus  | ✅     | 6 solvers + true anomaly + radius |
+| elliptic        | meeus  | 🔧     | velocity/length done, Position needs VSOP87 |
+| parabolic       | meeus  | ✅     | anomalyDistance for parabolic orbits |
+| nearparabolic   | meeus  | ✅     | anomalyDistance for near-parabolic orbits |
+| planetelements  | meeus  | ✅     | mean elements for 8 planets (Table 31.A) |
+| planetposition  | meeus  | 🔧     | stub — needs VSOP87 data files |
+| planetary       | meeus  | ✅     | conjunctions, oppositions, elongations |
+| pluto           | meeus  | ✅     | heliocentric coords (astrometric needs VSOP87) |
 
 ## Phase 7 — Planet Details
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 24
-- **In progress:** 4
-- **Remaining:** 29
+- **Done:** 30
+- **In progress:** 6
+- **Remaining:** 21

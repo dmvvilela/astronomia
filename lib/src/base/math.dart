@@ -50,3 +50,18 @@ double fromSexaSec(int d, int m, double s) => d + m / 60.0 + s / 3600.0;
 
 /// Normalizes an angle in radians to the range [0, 2π).
 double mod2pi(double x) => pMod(x, 2 * math.pi);
+
+/// Gaussian gravitational constant.
+const double k = 0.01720209895;
+
+/// One astronomical unit in km.
+const double au = 149597870;
+
+/// Sine of obliquity at J2000.
+const double sOblJ2000 = 0.397777156;
+
+/// Cosine of obliquity at J2000.
+const double cOblJ2000 = 0.917482062;
+
+/// Time for light to travel distance [delta] (in AU). Result in days.
+double lightTime(double delta) => 0.0057755183 * delta;
