@@ -20,9 +20,9 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 2 — Time
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| deltat          | meeus  | ⬜     | Delta T (TT - UT) |
-| sidereal        | meeus  | ⬜     | Greenwich sidereal time |
-| eqtime          | meeus  | ⬜     | equation of time |
+| deltat          | meeus  | ✅     | interp10A, polynomial approx for all eras |
+| sidereal        | meeus  | ✅     | mean0UT, mean (apparent needs nutation) |
+| eqtime          | meeus  | 🔧     | L0 polynomial only, needs nutation/solar/coord |
 
 ## Phase 3 — Coordinate Corrections
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 6
-- **In progress:** 0
-- **Remaining:** 51
+- **Done:** 8
+- **In progress:** 1
+- **Remaining:** 48

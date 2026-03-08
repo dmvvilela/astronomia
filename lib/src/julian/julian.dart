@@ -12,6 +12,9 @@ const double julianCentury = 36525.0;
 /// Julian days per Julian year.
 const double julianYear = 365.25;
 
+/// Julian date of the J1900.0 epoch.
+const double j1900 = 2415020.0;
+
 /// Modified Julian Day epoch (JD 2400000.5).
 const double mjdEpoch = 2400000.5;
 
