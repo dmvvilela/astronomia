@@ -70,12 +70,12 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 7 — Planet Details
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| illum           | meeus  | ⬜     | illuminated fraction & magnitude |
-| mars            | meeus  | ⬜     | Mars physical observations |
-| jupiter         | meeus  | ⬜     | Jupiter physical observations |
-| jupitermoons    | meeus  | ⬜     | Galilean satellites |
-| saturnring      | meeus  | ⬜     | Saturn ring appearance |
-| saturnmoons     | meeus  | ⬜     | Saturn satellites |
+| illum           | meeus  | ✅     | phase angle, fraction, magnitudes for all planets |
+| mars            | meeus  | 🔧     | stub — needs VSOP87 |
+| jupiter         | meeus  | ✅     | physical2 (approximate, no VSOP87) |
+| jupitermoons    | meeus  | ✅     | approximate Galilean moon positions |
+| saturnring      | meeus  | 🔧     | constants only — needs VSOP87 |
+| saturnmoons     | meeus  | 🔧     | stub — needs VSOP87 |
 
 ## Phase 8 — Misc
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 30
-- **In progress:** 6
-- **Remaining:** 21
+- **Done:** 33
+- **In progress:** 9
+- **Remaining:** 15
