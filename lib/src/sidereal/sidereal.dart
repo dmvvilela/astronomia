@@ -3,8 +3,11 @@
 /// Functions return sidereal time in seconds (range [0, 86400)).
 library;
 
+import 'dart:math' as math;
+
 import '../base/math.dart';
 import '../julian/julian.dart';
+import '../nutation/nutation.dart' as nut;
 
 /// IAU 1982 polynomial coefficients for mean sidereal time at 0h UT.
 ///
@@ -36,6 +39,18 @@ double mean(double jd) {
   final s = horner(r.cen, _iau82);
   final f = r.dayFrac * 86400; // day fraction in seconds
   return _mod86400(s + f * 1.00273790935);
+}
+
+/// Apparent sidereal time at Greenwich at 0h UT, in seconds.
+///
+/// Corrects mean sidereal time for nutation. Range [0, 86400).
+double apparent0UT(double jd) {
+  final s = mean0UT(jd);
+  final n = nut.nutation(jd);
+  final eps = nut.meanObliquity(jd) + n.dEps;
+  // Equation of the equinoxes: Δψ × cos(ε), converted to seconds of time.
+  final eq = n.dPsi * math.cos(eps) * 180 / math.pi * 240; // rad → arcsec → time seconds
+  return _mod86400(s + eq);
 }
 
 /// Converts sidereal time in seconds to hours.

@@ -10,6 +10,7 @@ import 'dart:math' as math;
 import '../base/math.dart';
 import '../julian/julian.dart';
 import '../nutation/nutation.dart' as nut;
+import '../solar/solar.dart' as solar;
 
 /// Constant of aberration κ in radians.
 final double kappa = secToRad(20.49552);
@@ -35,8 +36,30 @@ final double kappa = secToRad(20.49552);
 }
 
 /// Longitude of perihelion of Earth's orbit.
-double _perihelion(double t) {
+double perihelionEarth(double t) {
   return toRad(horner(t, [102.93735, 1.71946, 0.00046]));
+}
+
+/// Aberration corrections for ecliptic coordinates.
+///
+/// Returns (dLon, dLat) corrections in radians.
+/// Formula 23.2, p. 151.
+({double dLon, double dLat}) eclipticAberration(
+    double lon, double lat, double jde) {
+  final t = j2000Century(jde);
+  final sun = solar.trueSun(t);
+  final e = solar.eccentricity(t);
+  final pi = perihelionEarth(t);
+  final sBeta = math.sin(lat);
+  final cBeta = math.cos(lat);
+  final ssLon = math.sin(sun.lon - lon);
+  final csLon = math.cos(sun.lon - lon);
+  final sinPiLon = math.sin(pi - lon);
+  final cosPiLon = math.cos(pi - lon);
+  return (
+    dLon: kappa * (e * cosPiLon - csLon) / cBeta,
+    dLat: -kappa * sBeta * (ssLon - e * sinPiLon),
+  );
 }
 
 /// Aberration corrections for equatorial coordinates.
@@ -52,7 +75,7 @@ double _perihelion(double t) {
     double ra, double dec,
     double sunLon, double eccentricity, double t) {
   final eps = nut.meanObliquity(julianYearToJDE(2000 + t * 100));
-  final pi = _perihelion(t);
+  final pi = perihelionEarth(t);
   final sAlpha = math.sin(ra);
   final cAlpha = math.cos(ra);
   final sDec = math.sin(dec);
