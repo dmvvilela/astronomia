@@ -38,11 +38,11 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 ## Phase 4 — Sun
 | Module          | Source | Status | Notes |
 |-----------------|--------|--------|-------|
-| solar           | meeus  | ⬜     | solar coordinates |
-| solarxyz        | meeus  | ⬜     | rectangular coords of Sun |
-| solstice        | meeus  | ⬜     | equinoxes & solstices |
-| solardisk       | meeus  | ⬜     | physical observations of Sun |
-| sunrise         | astro  | ⬜     | sunrise/noon/sunset convenience |
+| solar           | meeus  | ✅     | trueSun, apparentLongitude, equatorial coords |
+| solarxyz        | meeus  | ✅     | rectangular coords (low-acc, VSOP87 pending) |
+| solstice        | meeus  | ✅     | march/june/september/december |
+| solardisk       | meeus  | 🔧     | Carrington cycle done, ephemeris needs VSOP87 |
+| sunrise         | astro  | ✅     | sunrise/noon/sunset with midnight sun |
 
 ## Phase 5 — Moon
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 14
-- **In progress:** 2
-- **Remaining:** 41
+- **Done:** 18
+- **In progress:** 3
+- **Remaining:** 36
