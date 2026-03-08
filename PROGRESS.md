@@ -13,9 +13,9 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 | base            | meeus  | ✅     | math utils, coordinate types |
 | sexagesimal     | astro  | ✅     | d°m′s″ representation |
 | julian          | meeus  | ✅     | JD conversions, day-of-year, leap year |
-| interpolation   | meeus  | ⬜     | 3-point, 5-point interpolation (meeus: interp) |
-| iterate         | meeus  | ⬜     | iterative equation solving |
-| fit             | meeus  | ⬜     | curve fitting |
+| interpolation   | meeus  | ✅     | 3-point, 5-point interpolation, Lagrange |
+| iterate         | meeus  | ✅     | decimalPlaces, fullPrecision, binaryRoot |
+| fit             | meeus  | ✅     | linear, quadratic, func1, func3, correlation |
 
 ## Phase 2 — Time
 | Module          | Source | Status | Notes |
@@ -99,6 +99,6 @@ Port of Go [meeus](https://github.com/soniakeys/meeus) + JS [astronomia](https:/
 
 ## Summary
 - **Total modules:** 57
-- **Done:** 3
+- **Done:** 6
 - **In progress:** 0
-- **Remaining:** 54
+- **Remaining:** 51
