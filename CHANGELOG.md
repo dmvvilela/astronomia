@@ -1,3 +1,14 @@
+## 0.3.0
+
+- **All 57 modules complete** — no more stubs.
+- **Mars physical ephemeris** — planetocentric declinations, areographic meridian, position angles, illuminated fraction (Ch. 42).
+- **Moon physical libration** — optical + physical librations, selenographic Sun coordinates, sunrise/sunset on lunar surface, 52-feature catalog (Ch. 53).
+- **Saturn moons** — positions of all 8 major moons (Mimas through Iapetus) in Saturn radii (Ch. 46).
+- **Planetary conjunctions** — Len5 interpolation for planetary and stellar conjunctions (Ch. 18).
+- **Solar VSOP87** — added `trueVSOP87()` and `apparentVSOP87()` high-accuracy functions.
+- **Public re-export files** — every module now has a `lib/<module>.dart` re-export. Import as `package:astronomia/solar.dart` instead of reaching into `src/`. No more `implementation_imports` lint.
+- 216 tests passing.
+
 ## 0.2.0
 
 - **VSOP87 planetary positions** — full heliocentric coordinates for all 8 planets via `planetposition` module.

@@ -8,9 +8,9 @@
 /// directly with a prefix:
 ///
 /// ```dart
-/// import 'package:astronomia/src/solar/solar.dart' as solar;
-/// import 'package:astronomia/src/moonposition/moonposition.dart' as moonpos;
-/// import 'package:astronomia/src/kepler/kepler.dart' as kepler;
+/// import 'package:astronomia/solar.dart' as solar;
+/// import 'package:astronomia/moonposition.dart' as moonpos;
+/// import 'package:astronomia/kepler.dart' as kepler;
 /// ```
 library;
 

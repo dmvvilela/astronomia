@@ -7,17 +7,17 @@ Astronomical algorithms in Dart, ported from Jean Meeus's
 
 ## Features
 
-**53 modules** covering positional astronomy, celestial mechanics, and calendar computations:
+**57 modules** covering positional astronomy, celestial mechanics, and calendar computations:
 
 | Category | Modules |
 |----------|---------|
 | **Time & Calendar** | Julian Day, Delta T, sidereal time, equation of time, Easter |
 | **Coordinates** | Ecliptic/equatorial/horizontal/galactic transforms, precession, nutation, parallax, refraction, aberration |
 | **Sun** | Solar position (low-acc + VSOP87), solstices & equinoxes, sunrise/sunset, solar disk ephemeris |
-| **Moon** | Lunar position, phases, illumination, nodes, apsis, max declination, **moonrise/moonset** |
-| **Planets** | VSOP87 heliocentric positions (all 8 planets), geocentric positions with light-time correction, Kepler solvers, orbital elements, conjunctions, oppositions, elongations, Pluto |
+| **Moon** | Lunar position, phases, illumination, nodes, apsis, max declination, **moonrise/moonset**, physical libration, selenographic coords |
+| **Planets** | VSOP87 heliocentric positions (all 8 planets), geocentric positions with light-time correction, Kepler solvers, orbital elements, **conjunctions**, oppositions, elongations, Pluto |
 | **Orbits** | Elliptic, parabolic, and near-parabolic motion, velocity, orbit length |
-| **Planet Details** | Illumination & magnitudes, Jupiter physical ephemeris, Galilean moons, **Saturn ring geometry** |
+| **Planet Details** | Illumination & magnitudes, Jupiter physical ephemeris, Galilean moons, **Saturn ring geometry**, **Saturn moons**, **Mars physical ephemeris** |
 | **Rise/Set** | Meeus ch. 15 refined algorithm with 3-day interpolation for any body |
 | **Geodesy** | Earth ellipsoid, geodetic distance, parallax constants |
 | **Stellar** | Magnitude arithmetic, binary star orbits, angular separation |
@@ -27,7 +27,7 @@ Astronomical algorithms in Dart, ported from Jean Meeus's
 
 ```yaml
 dependencies:
-  astronomia: ^0.2.0
+  astronomia: ^0.3.0
 ```
 
 ```dart
@@ -57,11 +57,11 @@ like `position`, `radius`, `eccentricity`, so prefixed imports keep things clear
 
 ```dart
 import 'package:astronomia/astronomia.dart';
-import 'package:astronomia/src/solar/solar.dart' as solar;
-import 'package:astronomia/src/moonposition/moonposition.dart' as moon;
-import 'package:astronomia/src/moonphase/moonphase.dart' as phase;
-import 'package:astronomia/src/rise/rise.dart' as rise;
-import 'package:astronomia/src/globe/globe.dart' as globe;
+import 'package:astronomia/solar.dart' as solar;
+import 'package:astronomia/moonposition.dart' as moon;
+import 'package:astronomia/moonphase.dart' as phase;
+import 'package:astronomia/rise.dart' as rise;
+import 'package:astronomia/globe.dart' as globe;
 
 void main() {
   final jd = calendarGregorianToJD(2000, 1, 1.5);
@@ -85,10 +85,10 @@ void main() {
 
 ```dart
 import 'package:astronomia/astronomia.dart';
-import 'package:astronomia/src/rise/rise.dart' as rise;
-import 'package:astronomia/src/moonposition/moonposition.dart' as moon;
-import 'package:astronomia/src/sidereal/sidereal.dart' as sid;
-import 'package:astronomia/src/coord/coord.dart' as coord;
+import 'package:astronomia/rise.dart' as rise;
+import 'package:astronomia/moonposition.dart' as moon;
+import 'package:astronomia/sidereal.dart' as sid;
+import 'package:astronomia/coord.dart' as coord;
 import 'dart:math' as math;
 
 void main() {
@@ -116,9 +116,9 @@ void main() {
 ### Planet positions
 
 ```dart
-import 'package:astronomia/src/planetposition/planetposition.dart';
-import 'package:astronomia/src/elliptic/elliptic.dart' as elliptic;
-import 'package:astronomia/src/base/math.dart';
+import 'package:astronomia/planetposition.dart';
+import 'package:astronomia/elliptic.dart' as elliptic;
+import 'package:astronomia/astronomia.dart';
 
 void main() {
   final earth = Planet(planetEarth);
@@ -144,11 +144,7 @@ void main() {
 
 ## Status
 
-53 of 57 modules are implemented. The remaining 4 are stubs for complex
-computations (Mars physical ephemeris, Moon physical libration, Saturn moons,
-planetary conjunctions).
-
-202 tests passing, validated against examples from Meeus's book.
+All 57 modules fully implemented. 216 tests passing, validated against examples from Meeus's book.
 
 ## References
 

@@ -1,7 +1,6 @@
 /// Solar: Chapter 25, Solar Coordinates.
 ///
-/// Low-accuracy solar position using the method of Meeus Ch. 25.
-/// High-accuracy VSOP87 methods will be added with planetposition module.
+/// Low- and high-accuracy solar position methods.
 /// All angles in radians.
 library;
 
@@ -10,6 +9,7 @@ import 'dart:math' as math;
 import '../base/math.dart';
 import '../julian/julian.dart';
 import '../nutation/nutation.dart' as nut;
+import '../planetposition/planetposition.dart';
 
 /// True geometric longitude and anomaly of the Sun.
 ///
@@ -102,4 +102,34 @@ double apparentLongitude(double t) {
 /// Low-accuracy aberration correction.
 double aberration(double r) {
   return secToRad(-20.4898) / r;
+}
+
+/// True geometric longitude of the Sun using VSOP87 (high accuracy).
+///
+/// [earth] is VSOP87 Planet Earth. Returns ecliptic (lon, lat, range)
+/// where lon/lat are in radians and range is in AU.
+/// Formula 25.9, p. 166.
+({double lon, double lat, double range}) trueVSOP87(Planet earth, double jde) {
+  final pos = earth.position(jde);
+  final s = pos.lon + math.pi;
+  final t = j2000Century(jde);
+  final lambdaP =
+      horner(t, [s, -1.397 * math.pi / 180, -0.00031 * math.pi / 180]);
+  final sLp = math.sin(lambdaP);
+  final cLp = math.cos(lambdaP);
+  final deltaBeta = secToRad(0.03916) * (cLp - sLp);
+  final lon = mod2pi(s - secToRad(0.09033));
+  final lat = deltaBeta - pos.lat;
+  return (lon: lon, lat: lat, range: pos.range);
+}
+
+/// Apparent longitude of the Sun using VSOP87 (high accuracy).
+///
+/// Applies nutation and aberration to [trueVSOP87].
+({double lon, double lat, double range}) apparentVSOP87(
+    Planet earth, double jde) {
+  final true_ = trueVSOP87(earth, jde);
+  final n = nut.nutation(jde);
+  final a = aberration(true_.range);
+  return (lon: true_.lon + n.dPsi + a, lat: true_.lat, range: true_.range);
 }
