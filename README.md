@@ -27,7 +27,7 @@ Astronomical algorithms in Dart, ported from Jean Meeus's
 
 ```yaml
 dependencies:
-  astronomia: ^0.3.0
+  astronomia: ^0.3.1
 ```
 
 ```dart

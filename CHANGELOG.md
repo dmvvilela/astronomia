@@ -1,3 +1,8 @@
+## 0.3.1
+
+- Add `lib/<module>.dart` public re-export files for all modules (fixes `implementation_imports` lint).
+- Add missing `lib/base.dart` re-export, remove empty `node` directory.
+
 ## 0.3.0
 
 - **All 56 modules complete** — no more stubs.
