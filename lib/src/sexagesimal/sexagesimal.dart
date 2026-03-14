@@ -38,6 +38,6 @@ class Sexa {
   String toString() {
     final sign = negative ? '-' : '';
     final sec = s.toStringAsFixed(2);
-    return '$sign${d}°${m.toString().padLeft(2, '0')}′${sec.padLeft(5, '0')}″';
+    return '$sign$d°${m.toString().padLeft(2, '0')}′${sec.padLeft(5, '0')}″';
   }
 }

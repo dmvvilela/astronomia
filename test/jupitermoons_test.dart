@@ -19,8 +19,6 @@ void main() {
       final pos = positions(jde);
       // Check radii from center
       final rIo = pos.io.x * pos.io.x + pos.io.y * pos.io.y;
-      final rEu = pos.europa.x * pos.europa.x + pos.europa.y * pos.europa.y;
-      final rGa = pos.ganymede.x * pos.ganymede.x + pos.ganymede.y * pos.ganymede.y;
       final rCa = pos.callisto.x * pos.callisto.x + pos.callisto.y * pos.callisto.y;
       // Max orbital radii: Io~5.9, Europa~9.4, Ganymede~15.0, Callisto~26.4
       // These are maximums so the actual distance may be less due to projection

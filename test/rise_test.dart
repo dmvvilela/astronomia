@@ -16,11 +16,8 @@ void main() {
       final lon = toRad(71 + 5 / 60); // positive west
 
       // Venus RA/dec for Mar 19, 20, 21 (dynamical time).
-      final alpha3 = [
-        toRad((40 + 3 / 60 + 4.77 / 3600) * 1), // 2h40m in degrees...
-        // Actually these are in hours. Convert: hours * 15 = degrees.
-        // Let me just use the values from the book as radians.
-      ];
+      // Original alpha3 attempt replaced by a3 below.
+
       // Meeus gives: α = 2h42m44s, 2h46m55s, 2h51m07s
       //              δ = +18°02', +18°26', +18°50'
       final a3 = [

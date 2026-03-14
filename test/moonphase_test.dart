@@ -1,6 +1,5 @@
 import 'package:astronomia/src/moonphase/moonphase.dart';
 import 'package:astronomia/src/julian/julian.dart';
-import 'package:astronomia/src/base/math.dart';
 import 'package:test/test.dart';
 
 void main() {

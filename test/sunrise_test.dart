@@ -11,9 +11,6 @@ void main() {
       final result = sunriseSunset(jd, 0, 0); // equator, Greenwich
       expect(result.rise, isNotNull);
       expect(result.set, isNotNull);
-      // Rise and set should be roughly symmetric around noon
-      final riseDay = jdToCalendar(result.rise!).day;
-      final setDay = jdToCalendar(result.set!).day;
       // Sunrise and sunset should differ by roughly 12 hours
       expect(result.set! - result.rise!, closeTo(0.5, 0.1));
     });

@@ -8,14 +8,14 @@ import 'dart:math' as math;
 import '../base/math.dart';
 import '../julian/julian.dart';
 import '../precess/precess.dart';
-import 'vsop87Bmercury.dart' as mercury_data;
-import 'vsop87Bvenus.dart' as venus_data;
-import 'vsop87Bearth.dart' as earth_data;
-import 'vsop87Bmars.dart' as mars_data;
-import 'vsop87Bjupiter.dart' as jupiter_data;
-import 'vsop87Bsaturn.dart' as saturn_data;
-import 'vsop87Buranus.dart' as uranus_data;
-import 'vsop87Bneptune.dart' as neptune_data;
+import 'vsop87b_mercury.dart' as mercury_data;
+import 'vsop87b_venus.dart' as venus_data;
+import 'vsop87b_earth.dart' as earth_data;
+import 'vsop87b_mars.dart' as mars_data;
+import 'vsop87b_jupiter.dart' as jupiter_data;
+import 'vsop87b_saturn.dart' as saturn_data;
+import 'vsop87b_uranus.dart' as uranus_data;
+import 'vsop87b_neptune.dart' as neptune_data;
 
 /// Planet indices.
 const int planetMercury = 0;

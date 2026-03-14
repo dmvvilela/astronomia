@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:astronomia/src/solardisk/solardisk.dart';
 import 'package:astronomia/src/base/math.dart';
 import 'package:astronomia/src/julian/julian.dart';

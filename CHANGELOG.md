@@ -1,3 +1,10 @@
+## 0.3.2
+
+- Rename VSOP87 data files to `lower_case_with_underscores` (fixes 8 `file_names` lint issues).
+- Remove unused imports and variables across test files.
+- Fix unnecessary brace in string interpolation in `sexagesimal.dart`.
+- Zero `dart analyze` issues.
+
 ## 0.3.1
 
 - Add `lib/<module>.dart` public re-export files for all modules (fixes `implementation_imports` lint).
