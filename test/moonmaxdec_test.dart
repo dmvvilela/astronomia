@@ -6,13 +6,13 @@ import 'package:test/test.dart';
 void main() {
   group('Moonmaxdec', () {
     test('Meeus example 52.a - north 1988 Dec', () {
-      // Meeus p. 369: 1988 Dec 22, δ ≈ +28°1565
+      // Meeus p. 370: JDE = 2447518.3347 (1988 Dec 22, 20:02 TD), δ = +28.1562°
       final r = north(1988.95);
+      expect(r.jde, closeTo(2447518.3347, 0.0001));
+      expect(toDeg(r.dec), closeTo(28.1562, 0.0001));
       final cal = jdToCalendar(r.jde);
       expect(cal.month, equals(12));
-      expect(cal.day, closeTo(22, 1.5));
-      final decDeg = toDeg(r.dec);
-      expect(decDeg, closeTo(28.16, 0.3));
+      expect(cal.day, closeTo(22.83, 0.01));
     });
 
     test('south declination is negative', () {

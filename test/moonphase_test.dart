@@ -5,11 +5,17 @@ import 'package:test/test.dart';
 void main() {
   group('Moonphase', () {
     test('Meeus example 49.a - New Moon 1977 Feb', () {
-      // Meeus p. 353: New Moon 1977 Feb 18 03:37 TD
+      // Meeus p. 353: JDE = 2443192.65118 (1977 Feb 18, 03:37:42 TD)
       final jde = newMoon(1977.13);
+      expect(jde, closeTo(2443192.65118, 0.00005));
       final cal = jdToCalendar(jde);
       expect(cal.month, equals(2));
-      expect(cal.day, closeTo(18.15, 0.1)); // ~03:37 is day 18.15
+      expect(cal.day, closeTo(18.151, 0.001));
+    });
+
+    test('Meeus example 49.b - Last Quarter 2044 Jan', () {
+      // Meeus p. 353: JDE = 2467636.49186 (2044 Jan 21, 23:48:17 TD)
+      expect(last(2044.04), closeTo(2467636.49186, 0.00005));
     });
 
     test('mean new moon is close to precise', () {

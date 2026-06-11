@@ -87,7 +87,7 @@ class MoonPhysical {
     final m = horner(t, [
       357.5291092 * _d2r,
       35999.0502909 * _d2r,
-      -0.0001536 * _d2r,
+      -0.0001535 * _d2r,
       _d2r / 24490000,
     ]);
     final mp = horner(t, [

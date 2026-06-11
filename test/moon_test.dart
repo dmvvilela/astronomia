@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:astronomia/src/base/coord.dart';
+import 'package:astronomia/src/julian/julian.dart';
 import 'package:astronomia/src/moon/moon.dart' as moon;
 import 'package:astronomia/src/planetposition/planetposition.dart';
 import 'package:test/test.dart';
@@ -13,26 +14,36 @@ void main() {
       earth = Planet(planetEarth);
     });
 
-    test('physical returns valid librations', () {
-      const jde = 2451545.0; // J2000
+    test('Meeus example 53.a - physical ephemeris 1992 Apr 12', () {
+      // Meeus p. 374: l = -1.23°, b = +4.20°, P = 15.08°,
+      // selenographic Sun l0 = 67.90°, b0 = +1.46°
+      final jde = calendarGregorianToJD(1992, 4, 12.0);
       final r = moon.physical(jde, earth);
-      // Libration in longitude: typically ±8°
-      expect(r.cMoon.lon.abs(), lessThan(15 * math.pi / 180));
-      // Libration in latitude: typically ±7°
-      expect(r.cMoon.lat.abs(), lessThan(15 * math.pi / 180));
-      // P in reasonable range
-      expect(r.p.isFinite, isTrue);
-      // Sun coords finite
-      expect(r.cSun.lon.isFinite, isTrue);
-      expect(r.cSun.lat.isFinite, isTrue);
+      const r2d = 180 / math.pi;
+      expect(r.cMoon.lon * r2d, closeTo(-1.23, 0.005));
+      expect(r.cMoon.lat * r2d, closeTo(4.20, 0.005));
+      expect(r.p * r2d, closeTo(15.08, 0.005));
+      expect(r.cSun.lon * r2d, closeTo(67.90, 0.005));
+      expect(r.cSun.lat * r2d, closeTo(1.46, 0.005));
     });
 
-    test('sunAltitude returns reasonable value', () {
-      final site = Ecliptic(-20 * math.pi / 180, 9.7 * math.pi / 180); // Copernicus
-      final sunCoord = Ecliptic(0.1, 0.05);
-      final alt = moon.sunAltitude(site, sunCoord);
-      expect(alt.isFinite, isTrue);
-      expect(alt.abs(), lessThanOrEqualTo(math.pi / 2));
+    test('sunAltitude at Copernicus for 1992 Apr 12', () {
+      // Reference example: h = +2.318°
+      final jde = calendarGregorianToJD(1992, 4, 12.0);
+      final r = moon.physical(jde, earth);
+      final site = Ecliptic(-20 * math.pi / 180, 9.7 * math.pi / 180);
+      final alt = moon.sunAltitude(site, r.cSun);
+      expect(alt * 180 / math.pi, closeTo(2.318, 0.001));
+    });
+
+    test('sunrise at Copernicus near 1992 Apr 15', () {
+      // Reference example: 1992 April 11.8069 TD
+      final j0 = calendarGregorianToJD(1992, 4, 15.0);
+      final site = Ecliptic(-20 * math.pi / 180, 9.7 * math.pi / 180);
+      final sr = moon.sunrise(site, j0, earth);
+      final cal = jdToCalendar(sr);
+      expect(cal.month, equals(4));
+      expect(cal.day, closeTo(11.8069, 0.0005));
     });
 
     test('selenographic catalog has known craters', () {

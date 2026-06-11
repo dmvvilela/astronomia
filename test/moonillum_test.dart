@@ -21,15 +21,22 @@ void main() {
       expect(illuminated(math.pi / 2), closeTo(0.5, 0.001));
     });
 
-    test('Meeus example 48.a - phase angle', () {
-      // Meeus p. 346: 1992 Apr 12
+    test('Meeus example 48.a - phase angle from coordinates', () {
+      // Meeus p. 347: i = 69.0756°, k = 0.6786
+      final i = phaseAngleEq(
+          toRad(134.6885), toRad(13.7684), 368410.0,
+          toRad(20.6579), toRad(8.6964), 149971520.0);
+      expect(toDeg(i), closeTo(69.0756, 0.0001));
+      expect(illuminated(i), closeTo(0.6786, 0.0001));
+    });
+
+    test('Meeus example 48.a - quick phase angle from JDE', () {
+      // phaseAngle3 is the lower-accuracy formula (48.4); for 1992 Apr 12
+      // it yields 68.8834° vs the rigorous 69.0756°. Pinned as regression.
       final jde = calendarGregorianToJD(1992, 4, 12.0);
       final i = phaseAngle3(jde);
-      final iDeg = toDeg(i);
-      // Expected: i ≈ 69.1° (Meeus p. 347)
-      expect(iDeg, closeTo(69.1, 1.0));
-      // Illuminated fraction ≈ 0.680
-      expect(illuminated(i), closeTo(0.68, 0.02));
+      expect(toDeg(i), closeTo(68.8834, 0.001));
+      expect(illuminated(i), closeTo(0.6786, 0.005));
     });
 
     test('phaseAngleEq with known positions', () {
