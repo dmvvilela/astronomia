@@ -9,9 +9,7 @@ void main() {
       final jde = calendarGregorianToJD(1992, 10, 13.0);
       final t = j2000Century(jde);
       final sun = trueSun(t);
-      final lonDeg = toDeg(sun.lon) % 360;
-      // Expected: ☉ ≈ 199.907° (Meeus p. 165)
-      expect(lonDeg, closeTo(199.91, 0.05));
+      expect(toDeg(sun.lon) % 360, closeTo(199.90987, 0.00001));
     });
 
     test('mean anomaly is reasonable', () {
@@ -34,11 +32,9 @@ void main() {
     test('apparent equatorial coordinates', () {
       final jde = calendarGregorianToJD(1992, 10, 13.0);
       final eq = apparentEquatorial(jde);
-      final raDeg = toDeg(eq.ra);
-      final decDeg = toDeg(eq.dec);
-      // Meeus p. 165: α ≈ 13h 13m 31s ≈ 198.38°, δ ≈ -7°47′ ≈ -7.78°
-      expect(raDeg, closeTo(198.38, 0.1));
-      expect(decDeg, closeTo(-7.78, 0.1));
+      // Meeus p. 165: α ≈ 13h 13m 31s, δ ≈ -7°47′06″
+      expect(toDeg(eq.ra), closeTo(198.381, 0.001));
+      expect(toDeg(eq.dec), closeTo(-7.785, 0.001));
     });
   });
 }

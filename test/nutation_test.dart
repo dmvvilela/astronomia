@@ -5,21 +5,17 @@ import 'package:test/test.dart';
 void main() {
   group('Nutation', () {
     test('Meeus example 22.a - 1987 April 10', () {
-      // p. 148
       final jde = calendarGregorianToJD(1987, 4, 10.0);
       final n = nutation(jde);
-      // Δψ = -3.788″ = -0.00001837 rad
-      expect(n.dPsi * 180 * 3600 / 3.14159265, closeTo(-3.788, 0.5));
-      // Δε = 9.443″
-      expect(n.dEps * 180 * 3600 / 3.14159265, closeTo(9.443, 0.5));
+      final arcsec = (double rad) => rad * 180 * 3600 / 3.141592653589793;
+      expect(arcsec(n.dPsi), closeTo(-3.788, 0.001));
+      expect(arcsec(n.dEps), closeTo(9.443, 0.001));
     });
 
     test('meanObliquity for 1987 April 10', () {
       final jde = calendarGregorianToJD(1987, 4, 10.0);
-      final eps = meanObliquity(jde);
-      // ε₀ ≈ 23°26′27.407″ = 23.4409° ≈ 0.40909 rad
-      final epsDeg = eps * 180 / 3.14159265;
-      expect(epsDeg, closeTo(23.4409, 0.001));
+      final epsDeg = meanObliquity(jde) * 180 / 3.141592653589793;
+      expect(epsDeg, closeTo(23.440946, 0.000001));
     });
 
     test('meanObliquityLaskar agrees with IAU 1980 near J2000', () {

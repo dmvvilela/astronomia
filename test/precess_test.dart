@@ -18,8 +18,8 @@ void main() {
       final raDeg = toDeg(result.ra);
       final decDeg = toDeg(result.dec);
       // Expected: α ≈ 2h 46m 12s ≈ 41.55°, δ ≈ 49°21′ ≈ 49.35°
-      expect(raDeg, closeTo(41.55, 0.1));
-      expect(decDeg, closeTo(49.35, 0.1));
+      expect(raDeg, closeTo(41.540877, 0.000001));
+      expect(decDeg, closeTo(49.346965, 0.000001));
     });
 
     test('identity precession (same epoch)', () {

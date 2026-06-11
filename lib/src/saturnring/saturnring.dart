@@ -34,84 +34,99 @@ const double outerEdgeArcsec = 375.35;
 /// - bAxis: semi-minor axis of outer edge (arcseconds)
 ({double b, double bPrime, double deltaU, double p, double a, double bAxis})
     ring(double jde, Planet earth, Planet saturn) {
-  // Inclination and node of Saturn's ring plane.
   final t = j2000Century(jde);
   final inc = toRad(horner(t, [28.075216, -0.012998, 0.000004]));
   final omega = toRad(horner(t, [169.508470, 1.394681, 0.000412]));
   final sInc = math.sin(inc);
   final cInc = math.cos(inc);
 
-  // Earth's heliocentric position.
-  final posEarth = earth.position(jde);
+  // Step 2: Earth's heliocentric position (FK5).
+  var posEarth = earth.position(jde);
+  final fk5Earth = toFK5(posEarth.lon, posEarth.lat, jde);
+  final l0 = fk5Earth.lon;
+  final b0 = fk5Earth.lat;
   final r0 = posEarth.range;
-  final l0 = posEarth.lon;
-  final b0 = posEarth.lat;
-
-  // Saturn's heliocentric position with light-time iteration.
-  var posSat = saturn.position(jde);
-  var r = posSat.range;
-  var l = posSat.lon;
-  var b = posSat.lat;
-
-  // Geocentric rectangular coords with light-time iteration.
   final sB0 = math.sin(b0), cB0 = math.cos(b0);
   final sL0 = math.sin(l0), cL0 = math.cos(l0);
-  var x = 0.0, y = 0.0, z = 0.0, delta = 0.0;
+
+  // Steps 3–4: Saturn with light-time iteration (FK5).
+  var delta = 9.0;
+  var x = 0.0, y = 0.0, z = 0.0;
+  var l = 0.0, b = 0.0, r = 0.0;
   for (var i = 0; i < 2; i++) {
+    final tau = lightTime(delta);
+    final posSat = saturn.position(jde - tau);
+    final fk5Sat = toFK5(posSat.lon, posSat.lat, jde);
+    l = fk5Sat.lon;
+    b = fk5Sat.lat;
+    r = posSat.range;
     final sB = math.sin(b), cB = math.cos(b);
     final sL = math.sin(l), cL = math.cos(l);
     x = r * cB * cL - r0 * cB0 * cL0;
     y = r * cB * sL - r0 * cB0 * sL0;
     z = r * sB - r0 * sB0;
     delta = math.sqrt(x * x + y * y + z * z);
-    final tau = lightTime(delta);
-    posSat = saturn.position(jde - tau);
-    r = posSat.range;
-    l = posSat.lon;
-    b = posSat.lat;
   }
 
-  // Geocentric ecliptic longitude and latitude of Saturn.
-  final lambda = math.atan2(y, x);
-  final beta = math.atan2(z, math.sqrt(x * x + y * y));
+  // Step 5: geocentric ecliptic coords of Saturn.
+  var lambda = math.atan2(y, x);
+  var beta = math.atan2(z, math.sqrt(x * x + y * y));
 
-  // Saturnicentric latitude of Earth, B.
-  final sinB = math.sin(inc) * math.cos(beta) * math.sin(lambda - omega) -
-      math.cos(inc) * math.sin(beta);
+  // Step 6 (partial): Saturnicentric latitude of Earth, B.
+  final sinB = sInc * math.cos(beta) * math.sin(lambda - omega) -
+      cInc * math.sin(beta);
   final bEarth = math.asin(sinB);
 
-  // Saturnicentric latitude of Sun, B'.
-  final lSat = posSat.lon;
-  final bSat = posSat.lat;
-  final sinBPrime =
-      sInc * math.cos(bSat) * math.sin(lSat - omega) - cInc * math.sin(bSat);
+  // Step 7: aberration-corrected heliocentric Saturn coords.
+  final nSat = toRad(113.6655 + 0.8771 * t * 100);
+  final lPrime = l - toRad(0.01759) / r;
+  final bPrimeHelio = b - toRad(0.000764) * math.cos(l - nSat) / r;
+
+  // Step 8: Saturnicentric latitude of Sun, B'.
+  final sinBPrime = sInc * math.cos(bPrimeHelio) * math.sin(lPrime - omega) -
+      cInc * math.sin(bPrimeHelio);
   final bPrime = math.asin(sinBPrime);
 
-  // ΔU: difference in longitude of Saturn seen from Sun vs Earth.
-  final n = toRad(113.6655 + 0.8771 * t * 100);
-  final lPrime = l - toRad(0.01759) / r;
-  final bPrimeSat = b - toRad(0.000764) * math.cos(l - n) / r;
+  // Step 9: ΔU.
   final u1 = math.atan2(
-      sInc * math.sin(bPrimeSat) + cInc * math.cos(bPrimeSat) * math.sin(lPrime - omega),
-      math.cos(bPrimeSat) * math.cos(lPrime - omega));
+      sInc * math.sin(bPrimeHelio) +
+          cInc * math.cos(bPrimeHelio) * math.sin(lPrime - omega),
+      math.cos(bPrimeHelio) * math.cos(lPrime - omega));
   final u2 = math.atan2(
       sInc * math.sin(beta) + cInc * math.cos(beta) * math.sin(lambda - omega),
       math.cos(beta) * math.cos(lambda - omega));
   final deltaU = (u1 - u2).abs();
 
-  // Position angle P.
+  // Steps 10–15: position angle P with aberration and nutation.
   final nn = nut.nutation(jde);
   final eps = nut.meanObliquity(jde) + nn.dEps;
-  // Ring pole ecliptic → equatorial.
-  final eqPole = eclToEq(omega, math.pi / 2 - inc, math.sin(eps), math.cos(eps));
-  final eqSat = eclToEq(lambda + nn.dPsi, beta, math.sin(eps), math.cos(eps));
+  final sEps = math.sin(eps), cEps = math.cos(eps);
+
+  // Step 11: ring pole in ecliptic coords.
+  var lambda0 = omega - math.pi / 2;
+  final beta0 = math.pi / 2 - inc;
+
+  // Step 12: aberration on geocentric Saturn coords.
+  final sL0L = math.sin(l0 - lambda);
+  final cL0L = math.cos(l0 - lambda);
+  final sBeta = math.sin(beta), cBeta = math.cos(beta);
+  lambda += toRad(0.005693) * cL0L / cBeta;
+  beta += toRad(0.005693) * sL0L * sBeta;
+
+  // Step 13: nutation.
+  lambda0 += nn.dPsi;
+  lambda += nn.dPsi;
+
+  // Step 14–15: position angle.
+  final eqPole = eclToEq(lambda0, beta0, sEps, cEps);
+  final eqSat = eclToEq(lambda, beta, sEps, cEps);
   final p = math.atan2(
       math.cos(eqPole.dec) * math.sin(eqPole.ra - eqSat.ra),
       math.sin(eqPole.dec) * math.cos(eqSat.dec) -
           math.cos(eqPole.dec) * math.sin(eqSat.dec) * math.cos(eqPole.ra - eqSat.ra));
 
-  // Ring axes.
-  final aAxis = secToRad(outerEdgeArcsec) / delta; // apparent semi-major
+  // Ring axes from step 6.
+  final aAxis = secToRad(outerEdgeArcsec) / delta;
   final bAxisVal = aAxis * sinB.abs();
 
   return (
@@ -119,7 +134,7 @@ const double outerEdgeArcsec = 375.35;
     bPrime: bPrime,
     deltaU: deltaU,
     p: p,
-    a: toDeg(aAxis) * 3600, // back to arcseconds
+    a: toDeg(aAxis) * 3600,
     bAxis: toDeg(bAxisVal) * 3600,
   );
 }

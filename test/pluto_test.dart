@@ -12,9 +12,9 @@ void main() {
       final lonDeg = toDeg(pos.lon) % 360;
       final latDeg = toDeg(pos.lat);
       // Expected: L ≈ 232.74°, B ≈ 14.59°, R ≈ 29.711 AU
-      expect(lonDeg, closeTo(232.74, 0.5));
-      expect(latDeg, closeTo(14.59, 0.5));
-      expect(pos.r, closeTo(29.711, 0.1));
+      expect(lonDeg, closeTo(232.74071, 0.00001));
+      expect(latDeg, closeTo(14.58782, 0.00001));
+      expect(pos.r, closeTo(29.711111, 0.000001));
     });
 
     test('distance is roughly 30-50 AU', () {

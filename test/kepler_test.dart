@@ -9,7 +9,7 @@ void main() {
       // Meeus p. 195
       final m = toRad(5);
       final e = kepler2(0.1, m);
-      expect(toDeg(e), closeTo(5.554, 0.01));
+      expect(toDeg(e), closeTo(5.554589, 0.000001));
     });
 
     test('true anomaly for circular orbit', () {

@@ -1,3 +1,17 @@
+## 1.0.0
+
+First stable release. Full audit against Meeus worked examples and the Go/JS reference implementations.
+
+**Algorithm fixes:**
+- `eqtime.e()` — use VSOP87 true position + aberration (was `position2000` without aberration).
+- `solardisk.ephemeris()` — use `trueVSOP87` + aberration per Meeus Ch. 29.
+- `saturnring.ring()` — FK5 corrections, aberration, nutation on ring pole, corrected B′.
+- `apsis` perigee parallax — complete Table 50.A coefficient series (16 missing terms).
+- `sidereal.apparent()` — new function; fix nutation epoch in `apparent0UT`.
+- `moonphase` — book-accurate A1/A7 constants and quarter-phase E factor (from 0.3.3).
+
+**Tests:** 219 tests, Meeus worked examples tightened to book precision across moon, solar, nutation, sidereal, eqtime, solardisk, apsis, kepler, precess, pluto, julian, globe, and related modules.
+
 ## 0.3.3
 
 - Fix moon phase corrections to match Meeus Ch. 49 exactly: `A1 = 299.77°`, `A7 = 207.14°`, and the missing `E` factor on the quarter-phase `−0.00034 sin(2M′−M)` term.

@@ -11,6 +11,7 @@ import '../coord/coord.dart';
 import '../julian/julian.dart';
 import '../nutation/nutation.dart' as nut;
 import '../planetposition/planetposition.dart';
+import '../solar/solar.dart' as solar;
 
 /// Mean longitude of the Sun, L0, from (28.2) p. 183.
 ///
@@ -33,19 +34,15 @@ double l0(double tau) {
 /// Returns the equation of time in radians (multiply by 180/π × 4 for minutes).
 double e(double jde, Planet earth) {
   final tau = j2000Century(jde) * 0.1; // Julian millennia
-  final sunPos = earth.position2000(jde);
-  // Sun longitude is Earth + π.
-  final sunLon = pMod(sunPos.lon + math.pi, 2 * math.pi);
-  // Nutation and obliquity.
+  final sun = solar.trueVSOP87(earth, jde);
   final n = nut.nutation(jde);
+  final a = solar.aberration(sun.range);
+  final lambda = sun.lon + n.dPsi + a;
   final eps = nut.meanObliquity(jde) + n.dEps;
-  // Sun's apparent RA from ecliptic coords.
-  final eq = eclToEq(sunLon + n.dPsi, -sunPos.lat, math.sin(eps), math.cos(eps));
-  // Mean longitude L0.
+  final eq = eclToEq(lambda, sun.lat, math.sin(eps), math.cos(eps));
   final meanLon = pMod(toRad(l0(tau)), 2 * math.pi);
   // (28.1) p. 183.
   var eot = meanLon - toRad(0.0057183) - eq.ra + n.dPsi * math.cos(eps);
-  // Normalize to [-π, π].
   eot = pMod(eot + math.pi, 2 * math.pi) - math.pi;
   return eot;
 }

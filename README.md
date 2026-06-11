@@ -27,7 +27,7 @@ Astronomical algorithms in Dart, ported from Jean Meeus's
 
 ```yaml
 dependencies:
-  astronomia: ^0.3.1
+  astronomia: ^1.0.0
 ```
 
 ```dart
@@ -144,7 +144,7 @@ void main() {
 
 ## Status
 
-All 56 modules fully implemented (1 stub: Jewish/Moslem calendars). 216 tests passing, validated against examples from Meeus's book.
+All 56 modules fully implemented (1 stub: Jewish/Moslem calendars). 219 tests passing, validated against Meeus worked examples at book precision.
 
 ## References
 

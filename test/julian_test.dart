@@ -5,7 +5,7 @@ void main() {
   group('Julian Day', () {
     test('Meeus example 7.a - 1957 Oct 4.81', () {
       final jd = calendarGregorianToJD(1957, 10, 4.81);
-      expect(jd, closeTo(2436116.31, 0.01));
+      expect(jd, closeTo(2436116.31, 0.00001));
     });
 
     test('J2000.0 epoch', () {

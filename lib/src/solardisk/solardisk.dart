@@ -9,6 +9,7 @@ import '../base/math.dart';
 import '../julian/julian.dart';
 import '../nutation/nutation.dart' as nut;
 import '../planetposition/planetposition.dart';
+import '../solar/solar.dart' as solar;
 
 /// Returns the JDE of the start of the given Carrington synodic rotation.
 ///
@@ -28,31 +29,30 @@ double cycle(int c) {
 /// [jde] is Julian ephemeris day, [earth] is a Planet object for Earth.
 /// Returns (p, b0, l0) all in radians.
 ({double p, double b0, double l0}) ephemeris(double jde, Planet earth) {
-  // Sun's ecliptic coords from Earth's VSOP87 position.
-  final posEarth = earth.position2000(jde);
-  var sunLon = pMod(posEarth.lon + math.pi, 2 * math.pi);
-
-  // Nutation and obliquity.
-  final n = nut.nutation(jde);
-  final eps = nut.meanObliquity(jde) + n.dEps;
-  // Apparent longitude.
-  final lambdaPrime = sunLon + n.dPsi;
-
-  // Constants (p. 189).
-  const iRad = 7.25 * math.pi / 180; // inclination of solar equator
+  const iRad = 7.25 * math.pi / 180;
   final kk = toRad(73.6667 + 1.3958333 * (jde - 2396758) / julianCentury);
   final theta = (jde - 2398220) * 2 * math.pi / 25.38;
 
+  final sun = solar.trueVSOP87(earth, jde);
+  final n = nut.nutation(jde);
+  final eps = nut.meanObliquity(jde) + n.dEps;
+  final lambda = sun.lon - solar.aberration(sun.range);
+  final lambdaPrime = lambda + n.dPsi;
+
+  final sLambdaK = math.sin(lambda - kk);
+  final cLambdaK = math.cos(lambda - kk);
+  final sI = math.sin(iRad);
+  final cI = math.cos(iRad);
+
   // Position angle of north pole, P. (29.1)
-  final p1 = math.atan2(-math.cos(lambdaPrime) * math.tan(eps), 1);
-  final p2 = math.atan2(-math.cos(sunLon - kk) * math.tan(iRad), 1);
-  final p = p1 + p2;
+  final p = math.atan(-math.cos(lambdaPrime) * math.tan(eps)) +
+      math.atan(-cLambdaK * math.tan(iRad));
 
   // Heliographic latitude of center, B0. (29.2)
-  final b0 = math.asin(math.sin(sunLon - kk) * math.sin(iRad));
+  final b0 = math.asin(sLambdaK * sI);
 
   // Heliographic longitude of center, L0. (29.3)
-  final eta = math.atan2(-math.sin(sunLon - kk) * math.cos(iRad), -math.cos(sunLon - kk));
+  final eta = math.atan2(-sLambdaK * cI, -cLambdaK);
   final l0 = pMod(eta - theta, 2 * math.pi);
 
   return (p: p, b0: b0, l0: l0);

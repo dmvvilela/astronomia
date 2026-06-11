@@ -40,7 +40,7 @@ void main() {
       final lon2 = toRad(77 + 4 / 60.0);
       final d = distance(lat1, lon1, lat2, lon2);
       // Expected ~6181 km
-      expect(d, closeTo(6181, 20));
+      expect(d, closeTo(6181.890, 0.001));
     });
   });
 }

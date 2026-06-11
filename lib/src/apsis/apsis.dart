@@ -211,6 +211,22 @@ class _La {
         -0.037 * math.cos(4 * d + 2 * f) +
         -0.035 * math.cos(16 * d) +
         -0.030 * math.cos(3 * d + m) +
-        0.029 * math.cos(d - m));
+        0.029 * math.cos(d - m) +
+        -0.025 * math.cos(6 * d + m) +
+        0.023 * math.cos(2 * m) +
+        0.023 * math.cos(14 * d - m) +
+        -0.023 * math.cos(2 * (d + m)) +
+        0.022 * math.cos(6 * d - 2 * m) +
+        -0.021 * math.cos(2 * d - 2 * f - m) +
+        -0.020 * math.cos(9 * d) +
+        0.019 * math.cos(18 * d) +
+        0.017 * math.cos(6 * d + 2 * f) +
+        0.014 * math.cos(2 * f - m) +
+        -0.014 * math.cos(16 * d - m) +
+        0.013 * math.cos(4 * d - 2 * f) +
+        0.012 * math.cos(8 * d + m) +
+        0.011 * math.cos(11 * d) +
+        0.010 * math.cos(5 * d + m) +
+        -0.010 * math.cos(20 * d));
   }
 }

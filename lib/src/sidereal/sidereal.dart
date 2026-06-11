@@ -41,15 +41,26 @@ double mean(double jd) {
   return _mod86400(s + f * 1.00273790935);
 }
 
+/// Apparent sidereal time at Greenwich for a given JD, in seconds.
+///
+/// Corrects mean sidereal time for nutation. Range [0, 86400).
+double apparent(double jd) {
+  final s = mean(jd);
+  final n = nut.nutation(jd);
+  final eps = nut.meanObliquity(jd) + n.dEps;
+  final eq = n.dPsi * math.cos(eps) * 180 / math.pi * 240;
+  return _mod86400(s + eq);
+}
+
 /// Apparent sidereal time at Greenwich at 0h UT, in seconds.
 ///
 /// Corrects mean sidereal time for nutation. Range [0, 86400).
 double apparent0UT(double jd) {
   final s = mean0UT(jd);
-  final n = nut.nutation(jd);
-  final eps = nut.meanObliquity(jd) + n.dEps;
-  // Equation of the equinoxes: Δψ × cos(ε), converted to seconds of time.
-  final eq = n.dPsi * math.cos(eps) * 180 / math.pi * 240; // rad → arcsec → time seconds
+  final j0 = (jd + 0.5).floorToDouble();
+  final n = nut.nutation(j0);
+  final eps = nut.meanObliquity(j0) + n.dEps;
+  final eq = n.dPsi * math.cos(eps) * 180 / math.pi * 240;
   return _mod86400(s + eq);
 }
 
