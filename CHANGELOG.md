@@ -1,3 +1,9 @@
+## 0.3.3
+
+- Fix moon phase corrections to match Meeus Ch. 49 exactly: `A1 = 299.77°`, `A7 = 207.14°`, and the missing `E` factor on the quarter-phase `−0.00034 sin(2M′−M)` term.
+- Fix Sun mean anomaly T² coefficient in moon physical ephemeris (`−0.0001535`, was `−0.0001536`).
+- Tighten moon module tests to book-precision Meeus worked examples (47.a–53.a); 220 tests passing.
+
 ## 0.3.2
 
 - Rename VSOP87 data files to `lower_case_with_underscores` (fixes 8 `file_names` lint issues).
