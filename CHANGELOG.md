@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Add `eclipse.localSolar()` for observer-specific solar-eclipse visibility,
+  local type, magnitude, obscuration, maximum, and Sun altitude.
+- Validate local solar circumstances against NASA's 2026 annular and total
+  eclipse paths, including daylight locations outside the eclipse footprint.
+
 ## 1.0.0
 
 First stable release. Full audit against Meeus worked examples and the Go/JS reference implementations.
