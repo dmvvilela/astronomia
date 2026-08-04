@@ -1,3 +1,10 @@
+## 1.1.1
+
+- Fix `sunrise.sunriseSunset()` placing sunrise, solar noon, and sunset about
+  twelve hours early.
+- Refine solar events against the apparent solar altitude, accounting for the
+  equation of time and the Sun's changing declination during the day.
+
 ## 1.1.0
 
 - Add `eclipse.localSolar()` for observer-specific solar-eclipse visibility,

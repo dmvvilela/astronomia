@@ -3,7 +3,7 @@ description: >-
   Astronomical algorithms in Dart — positions of Sun, Moon, and planets,
   eclipses, phases, coordinates, magnitudes, and more. Based on Jean Meeus's
   "Astronomical Algorithms".
-version: 1.1.0
+version: 1.1.1
 repository: https://github.com/dmvvilela/astronomia
 homepage: https://github.com/dmvvilela/astronomia
 topics:

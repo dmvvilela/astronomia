@@ -11,7 +11,12 @@ void main() {
       final result = sunriseSunset(jd, 0, 0); // equator, Greenwich
       expect(result.rise, isNotNull);
       expect(result.set, isNotNull);
-      // Sunrise and sunset should differ by roughly 12 hours
+      // Midnight is the input JD: rise is near 06:00, transit near 12:00,
+      // and set near 18:00. Checking only the day length would miss all
+      // three events being displaced by twelve hours.
+      expect(result.rise! - jd, closeTo(0.25, 0.02));
+      expect(result.noon - jd, closeTo(0.5, 0.02));
+      expect(result.set! - jd, closeTo(0.75, 0.02));
       expect(result.set! - result.rise!, closeTo(0.5, 0.1));
     });
 
